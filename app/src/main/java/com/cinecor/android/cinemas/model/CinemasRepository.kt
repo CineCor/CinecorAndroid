@@ -15,7 +15,9 @@ class CinemasRepository
 
     fun getCinemas(): LiveData<List<Cinema>> {
         val data = MutableLiveData<List<Cinema>>()
-        database.getReference("cinemas").addListenerForSingleValueEvent(object : ValueEventListener {
+        val reference = database.getReference("cinemas")
+        reference.keepSynced(true)
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val cinemas = ArrayList<Cinema>()
                 for (snapshot in dataSnapshot.children) {
@@ -33,7 +35,9 @@ class CinemasRepository
 
     fun getCinema(cinemaId: Int): LiveData<Cinema> {
         val data = MutableLiveData<Cinema>()
-        database.getReference("cinemas").child(cinemaId.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+        val reference = database.getReference("cinemas").child(cinemaId.toString())
+        reference.keepSynced(true)
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 data.value = dataSnapshot.getValue(Cinema::class.java)
             }
