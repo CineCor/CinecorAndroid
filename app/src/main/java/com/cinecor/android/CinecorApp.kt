@@ -1,33 +1,39 @@
 package com.cinecor.android
 
-import android.app.Activity
-import android.app.Application
-import com.cinecor.android.di.DaggerAppComponent
+import com.cinecor.android.di.AppModule
+import com.cinecor.android.di.BuildersModule
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class CinecorApp : Application(), HasActivityInjector {
+class CinecorApp : DaggerApplication() {
 
-    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @dagger.Component(
+            modules = arrayOf(AndroidInjectionModule::class, AppModule::class, BuildersModule::class)
+    )
+
+    @Singleton
+    internal interface Component : AndroidInjector<CinecorApp> {
+        @dagger.Component.Builder
+        abstract class Builder : AndroidInjector.Builder<CinecorApp>()
+    }
+
+    override fun applicationInjector(): AndroidInjector<CinecorApp> {
+        return DaggerCinecorApp_Component.builder().create(this)
+    }
+
     @Inject lateinit var firebaseDatabase: FirebaseDatabase
     @Inject lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate() {
         super.onCreate()
-        injectDependencies()
         setupFirebase()
         setupFresco()
-    }
-
-    private fun injectDependencies() {
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this)
     }
 
     private fun setupFirebase() {
@@ -37,9 +43,5 @@ class CinecorApp : Application(), HasActivityInjector {
 
     private fun setupFresco() {
         Fresco.initialize(this)
-    }
-
-    override fun activityInjector(): DispatchingAndroidInjector<Activity>? {
-        return dispatchingAndroidInjector
     }
 }

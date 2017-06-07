@@ -15,17 +15,17 @@ import dagger.Provides
 class AppModule {
 
     @Provides
-    internal fun provideContext(application: CinecorApp): Context {
+    fun provideContext(application: CinecorApp): Context {
         return application.applicationContext
     }
 
     @Provides
-    internal fun provideFirebaseDatabase(): FirebaseDatabase {
+    fun provideFirebaseDatabase(): FirebaseDatabase {
         return FirebaseDatabase.getInstance()
     }
 
     @Provides
-    internal fun provideFirebaseAuth(): FirebaseAuth {
+    fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
 }
