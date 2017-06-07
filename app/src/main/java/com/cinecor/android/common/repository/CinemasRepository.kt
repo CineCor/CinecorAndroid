@@ -1,8 +1,9 @@
-package com.cinecor.android.cinemas.model
+package com.cinecor.android.common.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.cinecor.android.common.model.Cinema
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase

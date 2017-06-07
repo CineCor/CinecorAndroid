@@ -4,8 +4,10 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.cinecor.android.R
-import com.cinecor.android.cinemas.model.Cinema
-import com.cinecor.android.common.BaseActivity
+import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.common.ui.BaseActivity
+import com.cinecor.android.common.viewmodel.CinemaViewModel
+import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import kotlinx.android.synthetic.main.activity_cinemas.*
 import javax.inject.Inject
 

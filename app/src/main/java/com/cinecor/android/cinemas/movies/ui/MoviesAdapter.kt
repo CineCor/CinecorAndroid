@@ -1,18 +1,18 @@
-package com.cinecor.android.cinemas.listMovies.ui
+package com.cinecor.android.cinemas.movies.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cinecor.android.R
-import com.cinecor.android.cinemas.model.Movie
+import com.cinecor.android.common.model.Movie
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.item_movie.view.*
 import java.util.*
 
 
-class ListMoviesAdapter : RecyclerView.Adapter<ListMoviesAdapter.ViewHolder>() {
+class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     private var movies: List<Movie> = ArrayList()
 

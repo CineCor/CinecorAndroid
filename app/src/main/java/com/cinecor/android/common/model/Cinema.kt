@@ -1,4 +1,4 @@
-package com.cinecor.android.cinemas.model
+package com.cinecor.android.common.model
 
 data class Cinema(var id: Int? = 0,
                   var name: String? = null,

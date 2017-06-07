@@ -1,4 +1,4 @@
-package com.cinecor.android.cinemas.listMovies.ui
+package com.cinecor.android.cinemas.movies.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -9,20 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cinecor.android.R
-import com.cinecor.android.cinemas.model.Cinema
-import com.cinecor.android.cinemas.ui.CinemaViewModel
-import com.cinecor.android.cinemas.ui.CinemaViewModelFactory
-import com.cinecor.android.common.BaseFragment
+import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.common.viewmodel.CinemaViewModel
+import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
+import com.cinecor.android.common.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_list_movies.*
 import javax.inject.Inject
 
-class ListMoviesFragment : BaseFragment(), Observer<Cinema> {
+class MoviesFragment : BaseFragment(), Observer<Cinema> {
 
     companion object {
         const private val ARG_CINEMA_ID = "cinemaId"
 
         fun getInstance(cinemaId: Int): Fragment {
-            val fragment = ListMoviesFragment()
+            val fragment = MoviesFragment()
             val args = Bundle()
             args.putInt(ARG_CINEMA_ID, cinemaId)
             fragment.arguments = args
@@ -33,7 +33,7 @@ class ListMoviesFragment : BaseFragment(), Observer<Cinema> {
     @Inject lateinit var factory: CinemaViewModelFactory
 
     private lateinit var viewModel: CinemaViewModel
-    private lateinit var adapter: ListMoviesAdapter
+    private lateinit var adapter: MoviesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_movies, container, false)
@@ -41,7 +41,7 @@ class ListMoviesFragment : BaseFragment(), Observer<Cinema> {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ListMoviesAdapter()
+        adapter = MoviesAdapter()
         list.setHasFixedSize(true)
         list.layoutManager = LinearLayoutManager(context)
         list.adapter = adapter

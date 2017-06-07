@@ -1,10 +1,10 @@
-package com.cinecor.android.cinemas.ui
+package com.cinecor.android.common.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 
-import com.cinecor.android.cinemas.model.Cinema
-import com.cinecor.android.cinemas.model.CinemasRepository
+import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.common.repository.CinemasRepository
 
 class CinemaViewModel(private val repository: CinemasRepository) : ViewModel() {
 

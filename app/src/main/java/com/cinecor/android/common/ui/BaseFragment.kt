@@ -1,4 +1,4 @@
-package com.cinecor.android.common
+package com.cinecor.android.common.ui
 
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner

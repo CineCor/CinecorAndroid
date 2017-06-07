@@ -4,14 +4,14 @@ import android.content.Context
 
 import com.cinecor.android.CinecorApp
 import com.cinecor.android.cinemas.di.CinemasSubComponent
-import com.cinecor.android.cinemas.listMovies.di.ListMoviesSubComponent
+import com.cinecor.android.cinemas.movies.di.MoviesSubComponent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 import dagger.Module
 import dagger.Provides
 
-@Module(subcomponents = arrayOf(CinemasSubComponent::class, ListMoviesSubComponent::class))
+@Module(subcomponents = arrayOf(CinemasSubComponent::class, MoviesSubComponent::class))
 class AppModule {
 
     @Provides

@@ -1,8 +1,8 @@
-package com.cinecor.android.cinemas.ui
+package com.cinecor.android.common.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.cinecor.android.cinemas.model.CinemasRepository
+import com.cinecor.android.common.repository.CinemasRepository
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")

@@ -2,12 +2,10 @@ package com.cinecor.android.di
 
 import android.app.Activity
 import android.support.v4.app.Fragment
-
 import com.cinecor.android.cinemas.di.CinemasSubComponent
+import com.cinecor.android.cinemas.movies.di.MoviesSubComponent
+import com.cinecor.android.cinemas.movies.ui.MoviesFragment
 import com.cinecor.android.cinemas.ui.CinemasActivity
-import com.cinecor.android.cinemas.listMovies.di.ListMoviesSubComponent
-import com.cinecor.android.cinemas.listMovies.ui.ListMoviesFragment
-
 import dagger.Binds
 import dagger.Module
 import dagger.android.ActivityKey
@@ -28,7 +26,7 @@ abstract class BuildersModule {
 
     @Binds
     @IntoMap
-    @FragmentKey(ListMoviesFragment::class)
-    internal abstract fun bindListMoviesFragmentInjectorFactory(builder: ListMoviesSubComponent.Builder): AndroidInjector.Factory<out Fragment>
+    @FragmentKey(MoviesFragment::class)
+    internal abstract fun bindMoviesFragmentInjectorFactory(builder: MoviesSubComponent.Builder): AndroidInjector.Factory<out Fragment>
 
 }

@@ -1,4 +1,4 @@
-package com.cinecor.android.cinemas.model
+package com.cinecor.android.common.model
 
 import com.cinecor.android.utils.DateUtils.formatedHour
 import com.cinecor.android.utils.DateUtils.isAfterNow
