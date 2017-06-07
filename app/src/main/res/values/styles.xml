@@ -8,4 +8,13 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
     </style>
 
+    <style name="CinecorTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CinecorTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="CinecorTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>

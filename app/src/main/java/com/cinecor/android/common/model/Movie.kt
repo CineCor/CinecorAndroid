@@ -2,6 +2,7 @@ package com.cinecor.android.common.model
 
 import com.cinecor.android.utils.DateUtils.formatedHour
 import com.cinecor.android.utils.DateUtils.isAfterNow
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -20,7 +21,7 @@ data class Movie(
         var director: String? = null,
         var url: String? = null,
         var rating: Float? = 0.0f,
-        var title: String? = null) {
+        var title: String? = null) : Serializable {
 
     fun getBackdropImages(): Pair<String?, String?>? {
         val main: String?

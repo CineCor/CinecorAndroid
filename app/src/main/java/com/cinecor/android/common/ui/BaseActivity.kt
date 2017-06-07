@@ -9,24 +9,23 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
 
-open class BaseActivity : android.support.v7.app.AppCompatActivity(), android.arch.lifecycle.LifecycleRegistryOwner, dagger.android.support.HasSupportFragmentInjector {
+open class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFragmentInjector {
 
-    @javax.inject.Inject lateinit var fragmentInjector: dagger.android.DispatchingAndroidInjector<Fragment>
+    @javax.inject.Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private val lifecycleRegistry = android.arch.lifecycle.LifecycleRegistry(this)
+    private val lifecycleRegistry = LifecycleRegistry(this)
 
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
-        dagger.android.AndroidInjection.inject(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
     }
 
-    override fun getLifecycle(): android.arch.lifecycle.LifecycleRegistry {
+    override fun getLifecycle(): LifecycleRegistry {
         return lifecycleRegistry
     }
 
-    override fun supportFragmentInjector(): dagger.android.AndroidInjector<Fragment> {
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
         return fragmentInjector
     }
 }

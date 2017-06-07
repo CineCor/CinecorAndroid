@@ -19,5 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".moviedetail.ui.MovieDetailActivity"
+            android:label="@string/title_activity_movie_detail"
+            android:parentActivityName=".cinemas.ui.CinemasActivity"
+            android:theme="@style/CinecorTheme.NoActionBar"/>
     </application>
 </manifest>

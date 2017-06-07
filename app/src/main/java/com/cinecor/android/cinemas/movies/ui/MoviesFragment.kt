@@ -10,16 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.common.model.Movie
+import com.cinecor.android.common.ui.BaseFragment
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
-import com.cinecor.android.common.ui.BaseFragment
+import com.cinecor.android.moviedetail.ui.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_list_movies.*
 import javax.inject.Inject
 
-class MoviesFragment : BaseFragment(), Observer<Cinema> {
-
+class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieClickListener {
     companion object {
-        const private val ARG_CINEMA_ID = "cinemaId"
+        const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
 
         fun getInstance(cinemaId: Int): Fragment {
             val fragment = MoviesFragment()
@@ -41,7 +42,7 @@ class MoviesFragment : BaseFragment(), Observer<Cinema> {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter()
+        adapter = MoviesAdapter(this)
         list.setHasFixedSize(true)
         list.layoutManager = LinearLayoutManager(context)
         list.adapter = adapter
@@ -55,5 +56,9 @@ class MoviesFragment : BaseFragment(), Observer<Cinema> {
 
     override fun onChanged(cinema: Cinema?) {
         cinema?.movies?.let { adapter.setMovies(it) }
+    }
+
+    override fun onMovieClicked(movie: Movie) {
+        startActivity(MovieDetailActivity.getInstance(activity, movie))
     }
 }

@@ -21,7 +21,6 @@ class CinemasActivity : BaseActivity(), Observer<List<Cinema>> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cinemas)
-
         setupView()
         getCinemas()
     }
