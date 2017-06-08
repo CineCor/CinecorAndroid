@@ -8,10 +8,8 @@ import com.cinecor.android.common.repository.CinemasRepository
 
 class CinemaViewModel(private val repository: CinemasRepository) : ViewModel() {
 
-    val cinemas: LiveData<List<Cinema>>
-
-    init {
-        cinemas = repository.getCinemas()
+    fun getCinemas(): LiveData<List<Cinema>> {
+        return repository.getCinemas()
     }
 
     fun getCinema(cinemaId: Int): LiveData<Cinema> {

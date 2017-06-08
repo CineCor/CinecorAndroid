@@ -32,7 +32,7 @@ class CinemasActivity : BaseActivity(), Observer<List<Cinema>> {
 
     private fun getCinemas() {
         viewModel = ViewModelProviders.of(this, factory).get(CinemaViewModel::class.java)
-        viewModel.cinemas.observe(this, this)
+        viewModel.getCinemas().observe(this, this)
     }
 
     override fun onChanged(cinemas: List<Cinema>?) {
