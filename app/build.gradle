@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: "$project.rootDir/script-git-version.gradle"
 
 android {
     compileSdkVersion 25
@@ -10,8 +11,8 @@ android {
         applicationId "com.cinecor.android"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode gitVersionCode
+        versionName gitVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
