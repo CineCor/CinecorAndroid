@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 
 import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.common.model.Movie
 import com.cinecor.android.common.repository.CinemasRepository
 
 class CinemaViewModel(repository: CinemasRepository) : ViewModel() {
@@ -17,7 +18,13 @@ class CinemaViewModel(repository: CinemasRepository) : ViewModel() {
 
     fun getCinema(cinemaId: Int): LiveData<Cinema> {
         val cinema = MutableLiveData<Cinema>()
-        cinema.value = cinemas.value?.find { (id) -> id == cinemaId }
+        cinema.value = cinemas.value?.find { it.id == cinemaId }
         return cinema
+    }
+
+    fun getMovie(movieId: Int): LiveData<Movie> {
+        val movie = MutableLiveData<Movie>()
+        movie.value = cinemas.value?.map { it.movies?.find { it.id == movieId } }?.first()
+        return movie
     }
 }

@@ -23,9 +23,9 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
         const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
 
         fun getInstance(cinemaId: Int): Fragment {
-            val fragment = MoviesFragment()
             val args = Bundle()
             args.putInt(ARG_CINEMA_ID, cinemaId)
+            val fragment = MoviesFragment()
             fragment.arguments = args
             return fragment
         }
@@ -59,6 +59,6 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     }
 
     override fun onMovieClicked(movie: Movie) {
-        startActivity(MovieDetailActivity.getInstance(activity, movie))
+        startActivity(MovieDetailActivity.getInstance(activity, movie.id))
     }
 }
