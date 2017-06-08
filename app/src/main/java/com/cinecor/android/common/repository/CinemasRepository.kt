@@ -19,7 +19,7 @@ class CinemasRepository
         reference.keepSynced(true)
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                data.value = dataSnapshot.children.map { it.getValue(Cinema::class.java) }
+                data.value = dataSnapshot.children.map { it.getValue(Cinema::class.java)!! }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
