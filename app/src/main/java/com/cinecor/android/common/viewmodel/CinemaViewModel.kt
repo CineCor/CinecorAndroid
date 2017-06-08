@@ -1,18 +1,23 @@
 package com.cinecor.android.common.viewmodel
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 
 import com.cinecor.android.common.model.Cinema
 import com.cinecor.android.common.repository.CinemasRepository
 
-class CinemaViewModel(private val repository: CinemasRepository) : ViewModel() {
+class CinemaViewModel(repository: CinemasRepository) : ViewModel() {
+
+    private val cinemas: LiveData<List<Cinema>> = repository.getCinemas()
 
     fun getCinemas(): LiveData<List<Cinema>> {
-        return repository.getCinemas()
+        return cinemas
     }
 
     fun getCinema(cinemaId: Int): LiveData<Cinema> {
-        return repository.getCinema(cinemaId)
+        val cinema = MutableLiveData<Cinema>()
+        cinema.value = cinemas.value?.find { (id) -> id == cinemaId }
+        return cinema
     }
 }
