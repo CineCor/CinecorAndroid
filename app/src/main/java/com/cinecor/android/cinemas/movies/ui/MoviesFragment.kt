@@ -22,9 +22,9 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     companion object {
         const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
 
-        fun getInstance(cinemaId: Int): Fragment {
+        fun getInstance(cinemaId: Int?): Fragment {
             val args = Bundle()
-            args.putInt(ARG_CINEMA_ID, cinemaId)
+            args.putInt(ARG_CINEMA_ID, cinemaId ?: -1)
             val fragment = MoviesFragment()
             fragment.arguments = args
             return fragment

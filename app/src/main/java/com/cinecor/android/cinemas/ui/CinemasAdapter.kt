@@ -3,8 +3,8 @@ package com.cinecor.android.cinemas.ui
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.cinecor.android.common.model.Cinema
 import com.cinecor.android.cinemas.movies.ui.MoviesFragment
+import com.cinecor.android.common.model.Cinema
 import java.util.*
 
 class CinemasAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
@@ -20,7 +20,7 @@ class CinemasAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
     }
 
     override fun getItem(position: Int): Fragment {
-        return MoviesFragment.getInstance(position)
+        return MoviesFragment.getInstance(cinemas[position].id)
     }
 
     fun setCinemas(cinemas: List<Cinema>) {
