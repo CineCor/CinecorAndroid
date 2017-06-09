@@ -21,7 +21,6 @@ import javax.inject.Inject
 class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieClickListener {
     companion object {
         const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
-
         fun getInstance(cinemaId: Int?): Fragment {
             val args = Bundle()
             args.putInt(ARG_CINEMA_ID, cinemaId ?: -1)
@@ -35,6 +34,7 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
 
     private lateinit var viewModel: CinemaViewModel
     private lateinit var adapter: MoviesAdapter
+    private var cinemaId: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_movies, container, false)
@@ -50,8 +50,9 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        cinemaId = arguments.getInt(ARG_CINEMA_ID, -1)
         viewModel = ViewModelProviders.of(activity, factory).get(CinemaViewModel::class.java)
-        viewModel.getCinema(arguments.getInt(ARG_CINEMA_ID, 0)).observe(this, this)
+        viewModel.getCinema(cinemaId).observe(this, this)
     }
 
     override fun onChanged(cinema: Cinema?) {
@@ -59,6 +60,6 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     }
 
     override fun onMovieClicked(movie: Movie) {
-        startActivity(MovieDetailActivity.getInstance(activity, movie.id))
+        startActivity(MovieDetailActivity.getInstance(activity, cinemaId, movie.id))
     }
 }

@@ -17,10 +17,11 @@ import javax.inject.Inject
 
 class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     companion object {
-
+        const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
         const private val ARG_MOVIE_ID = "ARG_MOVIE_ID"
-        fun getInstance(context: Context, movieId: Int?): Intent {
+        fun getInstance(context: Context, cinemaId: Int?, movieId: Int?): Intent {
             val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(ARG_CINEMA_ID, cinemaId)
             intent.putExtra(ARG_MOVIE_ID, movieId)
             return intent
         }
@@ -39,9 +40,10 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     private fun getMovie() {
+        val cinemaId = intent.extras.getInt(ARG_CINEMA_ID, -1)
         val movieId = intent.extras.getInt(ARG_MOVIE_ID, -1)
         viewModel = ViewModelProviders.of(this, factory).get(CinemaViewModel::class.java)
-        viewModel.getMovie(movieId).observe(this, this)
+        viewModel.getMovieFromCinema(movieId, cinemaId).observe(this, this)
     }
 
     private fun setupView() {
@@ -50,7 +52,6 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     override fun onChanged(movie: Movie?) {
-        println("Movie: " + movie)
         movie?.let {
             collapsing_toolbar.title = movie.title
             overview.text = movie.overview
