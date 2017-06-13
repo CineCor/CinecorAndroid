@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="CinecorTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -11,6 +11,12 @@
     <style name="CinecorTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CinecorTheme.NoActionBar.Splash">
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
     <style name="CinecorTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

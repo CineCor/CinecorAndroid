@@ -19,6 +19,7 @@ class CinemasActivity : BaseActivity(), Observer<List<Cinema>> {
     private lateinit var viewModel: CinemaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.CinecorTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cinemas)
         setupView()

@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/CinecorTheme">
 
-        <activity android:name=".cinemas.ui.CinemasActivity">
+        <activity
+            android:name=".cinemas.ui.CinemasActivity"
+            android:theme="@style/CinecorTheme.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
