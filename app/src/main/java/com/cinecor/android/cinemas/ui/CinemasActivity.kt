@@ -27,6 +27,7 @@ class CinemasActivity : BaseActivity(), Observer<List<Cinema>> {
     }
 
     private fun setupView() {
+        setSupportActionBar(toolbar)
         pager.offscreenPageLimit = 2
         pager.adapter = adapter
     }
