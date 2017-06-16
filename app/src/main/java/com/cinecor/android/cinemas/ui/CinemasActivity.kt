@@ -3,6 +3,7 @@ package com.cinecor.android.cinemas.ui
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.View.GONE
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Cinema
 import com.cinecor.android.common.ui.BaseActivity
@@ -38,6 +39,9 @@ class CinemasActivity : BaseActivity(), Observer<List<Cinema>> {
     }
 
     override fun onChanged(cinemas: List<Cinema>?) {
-        cinemas?.let { adapter.setCinemas(it) }
+        cinemas?.let {
+            loader.visibility = GONE
+            adapter.setCinemas(it)
+        }
     }
 }
