@@ -7,6 +7,7 @@ import com.cinecor.android.cinemas.di.CinemasSubComponent
 import com.cinecor.android.cinemas.movies.di.MoviesSubComponent
 import com.cinecor.android.moviedetail.di.MovieDetailSubComponent
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 import dagger.Module
@@ -23,6 +24,13 @@ class AppModule {
     @Provides
     fun provideFirebaseDatabase(): FirebaseDatabase {
         return FirebaseDatabase.getInstance()
+    }
+
+    @Provides
+    fun provideFirebaseDatabaseCinemasReference(database: FirebaseDatabase): DatabaseReference {
+        val reference = database.getReference("cinemas")
+        reference.keepSynced(true)
+        return reference
     }
 
     @Provides

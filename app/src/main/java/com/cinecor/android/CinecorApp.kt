@@ -3,7 +3,6 @@ package com.cinecor.android
 import com.cinecor.android.di.AppModule
 import com.cinecor.android.di.BuildersModule
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
@@ -28,7 +27,6 @@ class CinecorApp : DaggerApplication() {
     }
 
     @Inject lateinit var firebaseDatabase: FirebaseDatabase
-    @Inject lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate() {
         super.onCreate()
@@ -38,7 +36,6 @@ class CinecorApp : DaggerApplication() {
 
     private fun setupFirebase() {
         firebaseDatabase.setPersistenceEnabled(true)
-        firebaseAuth.signInAnonymously()
     }
 
     private fun setupFresco() {
