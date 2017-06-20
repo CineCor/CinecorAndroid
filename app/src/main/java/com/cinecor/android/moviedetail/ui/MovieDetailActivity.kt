@@ -4,7 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Color
 import android.os.Bundle
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Movie
@@ -12,7 +12,6 @@ import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import kotlinx.android.synthetic.main.activity_movie_detail.*
-import kotlinx.android.synthetic.main.content_movie_detail.*
 import javax.inject.Inject
 
 class MovieDetailActivity : BaseActivity(), Observer<Movie> {
@@ -48,21 +47,24 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
 
     private fun setupView() {
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun showMovie(movie: Movie) {
+        val mainColor = Color.parseColor(movie.colors[Movie.Colors.MAIN.toString()])
+        val textColor = Color.parseColor(movie.colors[Movie.Colors.TITLE.toString()])
+        name.text = movie.title
+        genres.text = movie.genres.joinToString(", ")
+        overview.text = movie.overview
+        poster.setImageURI(movie.images[Movie.Images.POSTER.toString()])
+        backdrop.setImageURI(movie.getBackdropImages()?.first)
+        banner.setBackgroundColor(mainColor)
+        genres.setTextColor(textColor)
+        name.setTextColor(textColor)
     }
 
     override fun onChanged(movie: Movie?) {
-        movie?.let {
-            collapsing_toolbar.title = movie.title
-            overview.text = movie.overview
-            backdrop.setImageURI(movie.getBackdropImages()?.first)
-            movie.imdb.let {
-                fab.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(movie.imdb)
-                    startActivity(intent)
-                }
-            }
-        }
+        movie?.let { showMovie(movie) }
     }
 }
