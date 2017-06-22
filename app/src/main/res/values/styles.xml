@@ -8,8 +8,11 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
     </style>
 
-    <style name="CinecorTheme.Splash">
+    <style name="CinecorTheme.Translucent">
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    </style>
+
+    <style name="CinecorTheme.Translucent.Splash">
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>

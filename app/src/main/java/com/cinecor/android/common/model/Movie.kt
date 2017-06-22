@@ -48,5 +48,5 @@ data class Movie(
     }
 
     enum class Images {POSTER, POSTER_THUMBNAIL, BACKDROP, BACKDROP_THUMBNAIL }
-    enum class Colors {MAIN, TITLE }
+    enum class Colors {MAIN, TITLE, BODY }
 }

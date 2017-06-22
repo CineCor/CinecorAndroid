@@ -52,8 +52,8 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     private fun showMovie(movie: Movie) {
-        val mainColor = Color.parseColor(movie.colors[Movie.Colors.MAIN.toString()])
-        val textColor = Color.parseColor(movie.colors[Movie.Colors.TITLE.toString()])
+        val mainColor = Color.parseColor(movie.colors[Movie.Colors.MAIN.toString()]?.rgba())
+        val textColor = Color.parseColor(movie.colors[Movie.Colors.TITLE.toString()]?.rgba())
         name.text = movie.title
         genres.text = movie.genres.joinToString(", ")
         overview.text = movie.overview
@@ -67,4 +67,6 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     override fun onChanged(movie: Movie?) {
         movie?.let { showMovie(movie) }
     }
+
+    fun String.rgba(): String = this.substring(0, 1) + this.substring(7, 9) + this.substring(1, 7)
 }
