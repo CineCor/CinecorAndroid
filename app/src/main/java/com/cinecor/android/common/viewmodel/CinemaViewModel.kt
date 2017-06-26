@@ -20,7 +20,7 @@ class CinemaViewModel(repository: CinemasRepository) : ViewModel() {
     }
 
     fun getMovie(movieId: Int): LiveData<Movie> {
-        return Transformations.map(cinemas, { it.flatMap { it.movies!! }.find { it.id == movieId } })
+        return Transformations.map(cinemas, { it.flatMap { it.movies }.find { it.id == movieId } })
     }
 
     fun getMovieFromCinema(movieId: Int, cinemaId: Int): LiveData<Movie> {

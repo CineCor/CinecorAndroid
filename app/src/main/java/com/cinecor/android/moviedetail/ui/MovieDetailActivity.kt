@@ -52,10 +52,10 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     private fun showMovie(movie: Movie) {
-        val mainColor = Color.parseColor(movie.colors[Movie.Colors.MAIN.toString()]?.rgba())
-        val textColor = Color.parseColor(movie.colors[Movie.Colors.TITLE.toString()]?.rgba())
+        val mainColor = parseRgbaColor(movie.colors[Movie.Colors.MAIN.toString()])
+        val textColor = parseRgbaColor(movie.colors[Movie.Colors.TITLE.toString()])
         name.text = movie.title
-        genres.text = movie.genres.joinToString(", ")
+        genres.text = movie.genres?.joinToString(", ")
         overview.text = movie.overview
         poster.setImageURI(movie.images[Movie.Images.POSTER.toString()])
         backdrop.setImageURI(movie.getBackdropImages()?.first)
@@ -68,5 +68,5 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
         movie?.let { showMovie(movie) }
     }
 
-    fun String.rgba(): String = this.substring(0, 1) + this.substring(7, 9) + this.substring(1, 7)
+    fun parseRgbaColor(color: String?): Int = Color.parseColor(color?.substring(0, 1) + color?.substring(7, 9) + color?.substring(1, 7))
 }

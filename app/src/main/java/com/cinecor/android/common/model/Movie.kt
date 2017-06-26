@@ -2,26 +2,25 @@ package com.cinecor.android.common.model
 
 import com.cinecor.android.utils.DateUtils.formatedHour
 import com.cinecor.android.utils.DateUtils.isAfterNow
-import java.io.Serializable
-import java.util.*
-import kotlin.collections.HashMap
 
-data class Movie(
-        var id: Int? = 0,
-        var colors: HashMap<String, String> = HashMap(),
-        var images: HashMap<String, String> = HashMap(),
-        var hours: List<String> = ArrayList(),
-        var genres: List<String> = ArrayList(),
-        var rawDescription: String? = null,
-        var imdb: String? = null,
-        var trailer: String? = null,
-        var duration: Int? = 0,
-        var releaseDate: String? = null,
-        var overview: String? = null,
-        var director: String? = null,
-        var url: String? = null,
-        var rating: Float? = 0.0f,
-        var title: String? = null) : Serializable {
+data class Movie(val id: Int = 0,
+                 var title: String = "",
+                 var hours: List<String> = ArrayList(),
+                 var is3d: Boolean = false,
+                 var isVose: Boolean = false,
+                 var images: HashMap<String, String> = HashMap(),
+                 var colors: HashMap<String, String> = HashMap(),
+                 var overview: String = "",
+                 var imdb: String? = null,
+                 var rating: Float? = null,
+                 var duration: Int? = null,
+                 var trailer: String? = null,
+                 var releaseDate: String? = null,
+                 var genres: List<String>? = null,
+                 var rawDescription: String? = null) {
+
+    enum class Images {POSTER, POSTER_THUMBNAIL, BACKDROP, BACKDROP_THUMBNAIL }
+    enum class Colors {MAIN, TITLE, BODY }
 
     fun getBackdropImages(): Pair<String?, String?>? {
         val main: String?
@@ -46,7 +45,4 @@ data class Movie(
         }
         return fullhours.toString()
     }
-
-    enum class Images {POSTER, POSTER_THUMBNAIL, BACKDROP, BACKDROP_THUMBNAIL }
-    enum class Colors {MAIN, TITLE, BODY }
 }
