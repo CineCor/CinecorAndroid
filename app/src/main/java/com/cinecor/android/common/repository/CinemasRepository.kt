@@ -18,7 +18,7 @@ class CinemasRepository
         val data = MutableLiveData<List<Cinema>>()
         firebaseAuth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                database.addListenerForSingleValueEvent(object : ValueEventListener {
+                database.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         data.value = dataSnapshot.children.map { it.getValue(Cinema::class.java)!! }
                     }
