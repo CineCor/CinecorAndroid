@@ -40,28 +40,13 @@
 -dontwarn com.google.errorprone.annotations.*
 
 
-# Fresco #
-# Keep our interfaces so they can be used by other ProGuard rules.
-# See http://sourceforge.net/p/proguard/bugs/466/
--keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
-
-# Do not strip any method/class that is annotated with @DoNotStrip
--keep @com.facebook.common.internal.DoNotStrip class *
--keepclassmembers class * {
-    @com.facebook.common.internal.DoNotStrip *;
+# Glide #
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
 }
-
-# Keep native methods
--keepclassmembers class * {
-    native <methods>;
-}
-
--dontwarn okio.**
--dontwarn com.squareup.okhttp.**
--dontwarn okhttp3.**
--dontwarn javax.annotation.**
--dontwarn com.android.volley.toolbox.**
--dontwarn com.facebook.infer.**
 
 
 # Android architecture components: Lifecycle #

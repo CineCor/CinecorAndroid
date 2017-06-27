@@ -9,13 +9,14 @@
     android:clickable="true"
     android:foreground="?selectableItemBackground">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/backdrop"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.7"
         android:contentDescription="Backdrop"
         android:scaleType="centerCrop"
+        android:transitionName="backdrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

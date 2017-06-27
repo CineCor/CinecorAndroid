@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
+import com.bumptech.glide.Glide
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Movie
 import com.cinecor.android.common.ui.BaseActivity
@@ -57,8 +59,19 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
         name.text = movie.title
         genres.text = movie.genres?.joinToString(", ")
         overview.text = movie.overview
-        poster.setImageURI(movie.images[Movie.Images.POSTER.toString()])
-        backdrop.setImageURI(movie.getBackdropImages()?.first)
+
+        val backdropImages = movie.getBackdropImages()
+        Glide.with(this)
+                .load(backdropImages?.first)
+                .thumbnail(Glide.with(this).load(backdropImages?.second))
+                .into(backdrop)
+
+        val posterImages = movie.getPosterImages()
+        Glide.with(this)
+                .load(posterImages?.first)
+                .thumbnail(Glide.with(this).load(posterImages?.second))
+                .into(poster)
+
         banner.setBackgroundColor(mainColor)
         genres.setTextColor(textColor)
         name.setTextColor(textColor)
@@ -66,6 +79,16 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
 
     override fun onChanged(movie: Movie?) {
         movie?.let { showMovie(movie) }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                supportFinishAfterTransition()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun parseRgbaColor(color: String?): Int = Color.parseColor(color?.substring(0, 1) + color?.substring(7, 9) + color?.substring(1, 7))

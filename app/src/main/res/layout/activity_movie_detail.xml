@@ -8,14 +8,13 @@
     android:fitsSystemWindows="true"
     tools:context="com.cinecor.android.moviedetail.ui.MovieDetailActivity">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/backdrop"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:alpha="0.7"
         android:fitsSystemWindows="true"
-        app:backgroundImage="@android:color/black"
-        app:fadeDuration="100"
+        android:transitionName="backdrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -41,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backdrop"
         tools:background="@android:color/holo_blue_bright"/>
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/poster"
         android:layout_width="100dp"
         android:layout_height="150dp"

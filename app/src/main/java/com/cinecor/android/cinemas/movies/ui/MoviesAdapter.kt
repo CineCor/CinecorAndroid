@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Movie
 import com.cinecor.android.utils.MovieDiffCallback
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.item_movie.view.*
 import java.util.*
 
@@ -21,7 +21,7 @@ class MoviesAdapter(val listener: OnMovieClickListener) : RecyclerView.Adapter<M
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         val viewHolder = ViewHolder(view)
-        view.setOnClickListener { listener.onMovieClicked(movies[viewHolder.adapterPosition]) }
+        view.setOnClickListener { listener.onMovieClicked(movies[viewHolder.adapterPosition], view.backdrop) }
         return viewHolder
     }
 
@@ -44,17 +44,16 @@ class MoviesAdapter(val listener: OnMovieClickListener) : RecyclerView.Adapter<M
                 val images = getBackdropImages()
                 itemView.title.text = title
                 itemView.hours.text = getFormattedHours()
-                itemView.backdrop.controller = Fresco.newDraweeControllerBuilder()
-                        .setLowResImageRequest(ImageRequest.fromUri(images?.second))
-                        .setImageRequest(ImageRequest.fromUri(images?.first))
-                        .setOldController(itemView.backdrop.controller)
-                        .build()
+                Glide.with(itemView)
+                        .load(images?.first)
+                        .thumbnail(Glide.with(itemView).load(images?.second))
+                        .into(itemView.backdrop)
             }
         }
 
     }
 
     interface OnMovieClickListener {
-        fun onMovieClicked(movie: Movie)
+        fun onMovieClicked(movie: Movie, image: ImageView)
     }
 }

@@ -23,16 +23,15 @@ data class Movie(val id: Int = 0,
     enum class Colors {MAIN, TITLE, BODY }
 
     fun getBackdropImages(): Pair<String?, String?>? {
-        val main: String?
-        val thumbnail: String?
         if (images.containsKey(Images.BACKDROP.toString())) {
-            main = images[Images.BACKDROP.toString()]
-            thumbnail = images[Images.BACKDROP_THUMBNAIL.toString()]
+            return Pair(images[Images.BACKDROP.toString()], images[Images.BACKDROP_THUMBNAIL.toString()])
         } else {
-            main = images[Images.POSTER.toString()]
-            thumbnail = images[Images.POSTER_THUMBNAIL.toString()]
+            return getPosterImages()
         }
-        return Pair(main, thumbnail)
+    }
+
+    fun getPosterImages(): Pair<String?, String?>? {
+        return Pair(images[Images.POSTER.toString()], images[Images.POSTER_THUMBNAIL.toString()])
     }
 
     fun getFormattedHours(): String? {

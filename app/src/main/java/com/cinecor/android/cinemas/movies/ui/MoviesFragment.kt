@@ -3,11 +3,13 @@ package com.cinecor.android.cinemas.movies.ui
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Cinema
 import com.cinecor.android.common.model.Movie
@@ -17,6 +19,7 @@ import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import com.cinecor.android.moviedetail.ui.MovieDetailActivity
 import kotlinx.android.synthetic.main.fragment_list_movies.*
 import javax.inject.Inject
+
 
 class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieClickListener {
 
@@ -60,7 +63,9 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
         cinema?.movies?.let { adapter.updateMovies(it) }
     }
 
-    override fun onMovieClicked(movie: Movie) {
-        startActivity(MovieDetailActivity.getInstance(activity, cinemaId, movie.id))
+    override fun onMovieClicked(movie: Movie, image: ImageView) {
+        val intent = MovieDetailActivity.getInstance(activity, cinemaId, movie.id)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, "backdrop").toBundle()
+        startActivity(intent, options)
     }
 }
