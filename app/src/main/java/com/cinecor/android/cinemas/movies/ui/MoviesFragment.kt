@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_list_movies.*
 import javax.inject.Inject
 
 class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieClickListener {
+
     companion object {
         const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
         fun getInstance(cinemaId: Int?): Fragment {
@@ -56,7 +57,7 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     }
 
     override fun onChanged(cinema: Cinema?) {
-        cinema?.movies?.let { adapter.setMovies(it) }
+        cinema?.movies?.let { adapter.updateMovies(it) }
     }
 
     override fun onMovieClicked(movie: Movie) {

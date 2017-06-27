@@ -1,11 +1,13 @@
 package com.cinecor.android.cinemas.movies.ui
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cinecor.android.R
 import com.cinecor.android.common.model.Movie
+import com.cinecor.android.utils.MovieDiffCallback
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.request.ImageRequest
 import kotlinx.android.synthetic.main.item_movie.view.*
@@ -31,9 +33,9 @@ class MoviesAdapter(val listener: OnMovieClickListener) : RecyclerView.Adapter<M
         return movies.size
     }
 
-    fun setMovies(movies: List<Movie>) {
+    fun updateMovies(movies: List<Movie>) {
+        DiffUtil.calculateDiff(MovieDiffCallback(this.movies, movies)).dispatchUpdatesTo(this)
         this.movies = movies
-        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
