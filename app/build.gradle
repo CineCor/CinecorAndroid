@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply from: "$project.rootDir/script-git-version.gradle"
 
 android {
@@ -53,6 +54,7 @@ dependencies {
     compile "com.google.firebase:firebase-crash:$firebase_version"
     compile "com.google.firebase:firebase-auth:$firebase_version"
     compile "com.google.firebase:firebase-database:$firebase_version"
+    compile "com.google.firebase:firebase-perf:$firebase_version"
 
     compile "com.google.dagger:dagger:$dagger_version"
     compile "com.google.dagger:dagger-android:$dagger_version"
