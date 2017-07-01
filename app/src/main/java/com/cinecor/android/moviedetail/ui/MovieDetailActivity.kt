@@ -56,27 +56,28 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     private fun showMovie(movie: Movie) {
         val mainColor = movie.colors[Movie.Colors.MAIN.toString()]?.rgba()
         val textColor = movie.colors[Movie.Colors.TITLE.toString()]?.rgba()
+        val backdropImages = movie.getBackdropImages()
+        val posterImages = movie.getPosterImages()
+
         name.text = movie.title
         genres.text = movie.genres?.joinToString(", ")
         overview.text = movie.overview
-
-        val backdropImages = movie.getBackdropImages()
-        Glide.with(this)
-                .load(backdropImages?.first)
-                .thumbnail(Glide.with(this).load(backdropImages?.second))
-                .into(backdrop)
-
-        val posterImages = movie.getPosterImages()
-        Glide.with(this)
-                .load(posterImages?.first)
-                .thumbnail(Glide.with(this).load(posterImages?.second))
-                .into(poster)
 
         mainColor?.let { banner.setBackgroundColor(it) }
         textColor?.let {
             genres.setTextColor(it)
             name.setTextColor(it)
         }
+
+        Glide.with(this)
+                .load(backdropImages?.first)
+                .thumbnail(Glide.with(this).load(backdropImages?.second))
+                .into(backdrop)
+
+        Glide.with(this)
+                .load(posterImages?.first)
+                .thumbnail(Glide.with(this).load(posterImages?.second))
+                .into(poster)
     }
 
     override fun onChanged(movie: Movie?) {
