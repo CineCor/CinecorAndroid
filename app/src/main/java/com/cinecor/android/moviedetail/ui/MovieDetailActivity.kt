@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import com.bumptech.glide.Glide
@@ -13,6 +12,7 @@ import com.cinecor.android.common.model.Movie
 import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
+import com.cinecor.android.utils.ColorUtils.rgba
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import javax.inject.Inject
 
@@ -54,8 +54,8 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     private fun showMovie(movie: Movie) {
-        val mainColor = parseRgbaColor(movie.colors[Movie.Colors.MAIN.toString()])
-        val textColor = parseRgbaColor(movie.colors[Movie.Colors.TITLE.toString()])
+        val mainColor = movie.colors[Movie.Colors.MAIN.toString()]?.rgba()
+        val textColor = movie.colors[Movie.Colors.TITLE.toString()]?.rgba()
         name.text = movie.title
         genres.text = movie.genres?.joinToString(", ")
         overview.text = movie.overview
@@ -72,9 +72,11 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
                 .thumbnail(Glide.with(this).load(posterImages?.second))
                 .into(poster)
 
-        banner.setBackgroundColor(mainColor)
-        genres.setTextColor(textColor)
-        name.setTextColor(textColor)
+        mainColor?.let { banner.setBackgroundColor(it) }
+        textColor?.let {
+            genres.setTextColor(it)
+            name.setTextColor(it)
+        }
     }
 
     override fun onChanged(movie: Movie?) {
@@ -90,6 +92,4 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    fun parseRgbaColor(color: String?): Int = Color.parseColor(color?.substring(0, 1) + color?.substring(7, 9) + color?.substring(1, 7))
 }
