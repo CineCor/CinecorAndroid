@@ -1,10 +1,10 @@
 package com.cinecor.android.common.model
 
 data class Cinema(val id: Int = 0,
-                  var name: String = "",
-                  var movies: List<Movie> = ArrayList(),
-                  var address: String? = null,
-                  var image: String? = null,
-                  var rooms: String? = null,
-                  var phone: String? = null,
-                  var web: String? = null)
+                  val name: String = "",
+                  val movies: List<Movie> = ArrayList(),
+                  val address: String? = null,
+                  val image: String? = null,
+                  val rooms: String? = null,
+                  val phone: String? = null,
+                  val web: String? = null)
