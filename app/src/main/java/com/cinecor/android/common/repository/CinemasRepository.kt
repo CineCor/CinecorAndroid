@@ -7,18 +7,20 @@ import com.cinecor.android.common.model.Cinema
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import javax.inject.Inject
 
 class CinemasRepository
-@Inject constructor(val database: DatabaseReference, val firebaseAuth: FirebaseAuth) {
+@Inject constructor(val firebaseAuth: FirebaseAuth, val database: FirebaseDatabase) {
 
     fun getCinemas(): LiveData<List<Cinema>> {
         val data = MutableLiveData<List<Cinema>>()
         firebaseAuth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                database.addValueEventListener(object : ValueEventListener {
+                val reference = database.getReference("cinemas")
+                reference.keepSynced(true)
+                reference.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         data.value = dataSnapshot.children.map { it.getValue(Cinema::class.java)!! }
                     }

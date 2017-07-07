@@ -1,24 +1,25 @@
 package com.cinecor.android.di
 
 import android.content.Context
-
 import com.cinecor.android.CinecorApp
-import com.cinecor.android.cinemas.di.CinemasSubComponent
-import com.cinecor.android.cinemas.movies.di.MoviesSubComponent
-import com.cinecor.android.moviedetail.di.MovieDetailSubComponent
+import com.cinecor.android.common.repository.CinemasRepository
+import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
 import dagger.Module
 import dagger.Provides
 
-@Module(subcomponents = arrayOf(CinemasSubComponent::class, MovieDetailSubComponent::class, MoviesSubComponent::class))
+@Module
 class AppModule {
 
     @Provides
     fun provideContext(application: CinecorApp): Context {
-        return application.applicationContext
+        return application
+    }
+
+    @Provides
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 
     @Provides
@@ -27,14 +28,12 @@ class AppModule {
     }
 
     @Provides
-    fun provideFirebaseDatabaseCinemasReference(database: FirebaseDatabase): DatabaseReference {
-        val reference = database.getReference("cinemas")
-        reference.keepSynced(true)
-        return reference
+    fun provideRepository(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase): CinemasRepository{
+        return CinemasRepository(firebaseAuth, firebaseDatabase)
     }
 
     @Provides
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
+    fun provideCinemaViewModelFactory(repository: CinemasRepository): CinemaViewModelFactory {
+        return CinemaViewModelFactory(repository)
     }
 }
