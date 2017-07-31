@@ -17,18 +17,20 @@ import com.cinecor.android.common.ui.BaseFragment
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import com.cinecor.android.moviedetail.ui.MovieDetailActivity
+import com.cinecor.android.utils.IntentUtils
 import kotlinx.android.synthetic.main.fragment_list_movies.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
 
 class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieClickListener {
 
     companion object {
-        const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
-        fun getInstance(cinemaId: Int?): Fragment {
-            val args = Bundle()
-            args.putInt(ARG_CINEMA_ID, cinemaId ?: -1)
+        @JvmStatic fun getInstance(cinemaId: Int?): Fragment {
             val fragment = MoviesFragment()
+            val args = Bundle()
+            args.putInt(IntentUtils.ARG_CINEMA_ID, cinemaId ?: -1)
             fragment.arguments = args
             return fragment
         }
@@ -54,17 +56,17 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        cinemaId = arguments.getInt(ARG_CINEMA_ID, -1)
+        cinemaId = arguments.getInt(IntentUtils.ARG_CINEMA_ID, -1)
         viewModel = ViewModelProviders.of(activity, factory).get(CinemaViewModel::class.java)
         viewModel.getCinema(cinemaId).observe(this, this)
     }
 
     override fun onChanged(cinema: Cinema?) {
-        cinema?.movies?.let { adapter.updateMovies(it) }
+        cinema?.movies?.let { adapter.updateMovies(it) } ?: toast("Error loading Cinemas")
     }
 
     override fun onMovieClicked(movie: Movie, image: ImageView) {
-        val intent = MovieDetailActivity.getInstance(activity, cinemaId, movie.id)
+        val intent = activity.intentFor<MovieDetailActivity>(IntentUtils.ARG_CINEMA_ID to cinemaId, IntentUtils.ARG_MOVIE_ID to movie.id)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, image, "backdrop").toBundle()
         startActivity(intent, options)
     }

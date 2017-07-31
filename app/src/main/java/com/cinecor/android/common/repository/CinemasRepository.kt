@@ -2,17 +2,18 @@ package com.cinecor.android.common.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.util.Log
 import com.cinecor.android.common.model.Cinema
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.warn
 import javax.inject.Inject
 
 class CinemasRepository
-@Inject constructor(val firebaseAuth: FirebaseAuth, val database: FirebaseDatabase) {
+@Inject constructor(val firebaseAuth: FirebaseAuth, val database: FirebaseDatabase, val log: AnkoLogger) {
 
     fun getCinemas(): LiveData<List<Cinema>> {
         val data = MutableLiveData<List<Cinema>>()
@@ -26,12 +27,12 @@ class CinemasRepository
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
-                        Log.e(CinemasRepository::class.java.simpleName, databaseError.message)
+                        log.warn { databaseError.message }
                         data.value = null
                     }
                 })
             } else {
-                Log.e(CinemasRepository::class.java.simpleName, "Authentication failed")
+                log.warn { "Authentication failed" }
                 data.value = null
             }
         }

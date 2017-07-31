@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
+import org.jetbrains.anko.AnkoLogger
 
 @Module
 class AppModule {
@@ -28,12 +29,17 @@ class AppModule {
     }
 
     @Provides
-    fun provideRepository(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase): CinemasRepository{
-        return CinemasRepository(firebaseAuth, firebaseDatabase)
+    fun provideRepository(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase, logger: AnkoLogger): CinemasRepository {
+        return CinemasRepository(firebaseAuth, firebaseDatabase, logger)
     }
 
     @Provides
     fun provideCinemaViewModelFactory(repository: CinemasRepository): CinemaViewModelFactory {
         return CinemaViewModelFactory(repository)
+    }
+
+    @Provides
+    fun provideLogger(): AnkoLogger {
+        return AnkoLogger<CinecorApp>()
     }
 }

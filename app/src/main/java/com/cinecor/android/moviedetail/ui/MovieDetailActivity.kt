@@ -2,8 +2,6 @@ package com.cinecor.android.moviedetail.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import com.bumptech.glide.Glide
@@ -13,21 +11,11 @@ import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import com.cinecor.android.utils.ColorUtils.rgba
+import com.cinecor.android.utils.IntentUtils
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import javax.inject.Inject
 
 class MovieDetailActivity : BaseActivity(), Observer<Movie> {
-    companion object {
-        const private val ARG_CINEMA_ID = "ARG_CINEMA_ID"
-        const private val ARG_MOVIE_ID = "ARG_MOVIE_ID"
-        fun getInstance(context: Context, cinemaId: Int?, movieId: Int?): Intent {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(ARG_CINEMA_ID, cinemaId)
-            intent.putExtra(ARG_MOVIE_ID, movieId)
-            return intent
-        }
-
-    }
 
     @Inject lateinit var factory: CinemaViewModelFactory
 
@@ -41,8 +29,8 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
     }
 
     private fun getMovie() {
-        val cinemaId = intent.extras.getInt(ARG_CINEMA_ID, -1)
-        val movieId = intent.extras.getInt(ARG_MOVIE_ID, -1)
+        val cinemaId = intent.extras.getInt(IntentUtils.ARG_CINEMA_ID, -1)
+        val movieId = intent.extras.getInt(IntentUtils.ARG_MOVIE_ID, -1)
         viewModel = ViewModelProviders.of(this, factory).get(CinemaViewModel::class.java)
         viewModel.getMovieFromCinema(movieId, cinemaId).observe(this, this)
     }
