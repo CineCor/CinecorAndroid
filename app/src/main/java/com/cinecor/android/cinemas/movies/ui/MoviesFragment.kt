@@ -35,10 +35,11 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     }
 
     @Inject lateinit var factory: CinemaViewModelFactory
+    @Inject lateinit var adapter: MoviesAdapter
+    @Inject lateinit var layoutManager: LinearLayoutManager
 
     private lateinit var viewModel: CinemaViewModel
-    private lateinit var adapter: MoviesAdapter
-    private var cinemaId: Int = -1
+    private var cinemaId = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_movies, container, false)
@@ -46,9 +47,8 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter(this)
         list.setHasFixedSize(true)
-        list.layoutManager = LinearLayoutManager(context)
+        list.layoutManager = layoutManager
         list.adapter = adapter
     }
 
