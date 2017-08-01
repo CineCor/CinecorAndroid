@@ -38,7 +38,6 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
 
     @Inject lateinit var factory: CinemaViewModelFactory
     @Inject lateinit var adapter: MoviesAdapter
-    @Inject lateinit var layoutManager: LinearLayoutManager
 
     private lateinit var viewModel: CinemaViewModel
     private var cinemaId = -1
@@ -50,7 +49,7 @@ class MoviesFragment : BaseFragment(), Observer<Cinema>, MoviesAdapter.OnMovieCl
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         list.setHasFixedSize(true)
-        list.layoutManager = layoutManager
+        list.layoutManager = LinearLayoutManager(context)
         list.adapter = adapter
     }
 
