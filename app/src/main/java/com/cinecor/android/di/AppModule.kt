@@ -3,6 +3,7 @@ package com.cinecor.android.di
 import android.content.Context
 import com.cinecor.android.CinecorApp
 import com.cinecor.android.common.repository.CinemasRepository
+import com.cinecor.android.common.repository.CinemasRepositoryImpl
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -30,7 +31,7 @@ class AppModule {
 
     @Provides
     fun provideRepository(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase, logger: AnkoLogger): CinemasRepository {
-        return CinemasRepository(firebaseAuth, firebaseDatabase, logger)
+        return CinemasRepositoryImpl(firebaseAuth, firebaseDatabase, logger)
     }
 
     @Provides
