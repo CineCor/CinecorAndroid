@@ -2,61 +2,69 @@ package com.cinecor.android.data.source
 
 import android.arch.lifecycle.LiveData
 import com.cinecor.android.data.model.Cinema
+import com.cinecor.android.data.model.Movie
 import javax.inject.Inject
 
 class CinemasRepository
 @Inject constructor(private val localDataSource: CinecorDataSource, private val remoteDataSource: CinecorDataSource)
     : CinecorDataSource {
 
-    private var localIsDirty = false
-
     override fun getCinemas(callback: CinecorDataSource.LoadCinemasCallback) {
-        return if (localIsDirty) {
-            remoteDataSource.getCinemas(object : CinecorDataSource.LoadCinemasCallback {
-                override fun onCinemasLoaded(cinemas: LiveData<List<Cinema>>) {
-                    localDataSource.saveCinemas(cinemas.value!!)
-                    callback.onCinemasLoaded(cinemas)
-                }
+        localDataSource.getCinemas(object : CinecorDataSource.LoadCinemasCallback {
+            override fun onCinemasLoaded(cinemas: LiveData<List<Cinema>>) {
+                callback.onCinemasLoaded(cinemas)
+            }
 
-                override fun onDataNotAvailable() {
-                    callback.onDataNotAvailable()
-                }
-            })
-        } else {
-            localDataSource.getCinemas(object : CinecorDataSource.LoadCinemasCallback {
-                override fun onCinemasLoaded(cinemas: LiveData<List<Cinema>>) {
-                    callback.onCinemasLoaded(cinemas)
-                }
+            override fun onDataNotAvailable() {
+                remoteDataSource.getCinemas(object : CinecorDataSource.LoadCinemasCallback {
+                    override fun onCinemasLoaded(cinemas: LiveData<List<Cinema>>) {
+                        localDataSource.saveCinemas(cinemas.value!!)
+                        callback.onCinemasLoaded(cinemas)
+                    }
 
-                override fun onDataNotAvailable() {
-                    remoteDataSource.getCinemas(callback)
-                }
-            })
-        }
+                    override fun onDataNotAvailable() {
+                        callback.onDataNotAvailable()
+                    }
+                })
+            }
+        })
     }
 
     override fun getCinema(id: Int, callback: CinecorDataSource.GetCinemaCallback) {
-        return if (localIsDirty) {
-            remoteDataSource.getCinema(id, callback)
-        } else {
-            localDataSource.getCinema(id, callback)
-        }
+        localDataSource.getCinema(id, object : CinecorDataSource.GetCinemaCallback {
+            override fun onCinemaLoaded(cinema: LiveData<Cinema>) {
+                callback.onCinemaLoaded(cinema)
+            }
+
+            override fun onDataNotAvailable() {
+                remoteDataSource.getCinema(id, callback)
+            }
+        })
     }
 
     override fun getMoviesFromCinema(id: Int, callback: CinecorDataSource.GetMoviesCallback) {
-        return if (localIsDirty) {
-            remoteDataSource.getMoviesFromCinema(id, callback)
-        } else {
-            localDataSource.getMoviesFromCinema(id, callback)
-        }
+        localDataSource.getMoviesFromCinema(id, object : CinecorDataSource.GetMoviesCallback {
+            override fun onMoviesLoaded(movies: LiveData<List<Movie>>) {
+                callback.onMoviesLoaded(movies)
+            }
+
+            override fun onDataNotAvailable() {
+                remoteDataSource.getMoviesFromCinema(id, callback)
+            }
+
+        })
     }
 
     override fun getMovieFromCinema(cinemaId: Int, movieId: Int, callback: CinecorDataSource.GetMovieCallback) {
-        return if (localIsDirty) {
-            remoteDataSource.getMovieFromCinema(cinemaId, movieId, callback)
-        } else {
-            localDataSource.getMovieFromCinema(cinemaId, movieId, callback)
-        }
+        localDataSource.getMovieFromCinema(cinemaId, movieId, object : CinecorDataSource.GetMovieCallback {
+            override fun onMovieLoaded(movie: LiveData<Movie>) {
+                callback.onMovieLoaded(movie)
+            }
+
+            override fun onDataNotAvailable() {
+                remoteDataSource.getMovieFromCinema(cinemaId, movieId, callback)
+            }
+        })
     }
 
     override fun saveCinemas(cinemas: List<Cinema>) {
@@ -65,9 +73,5 @@ class CinemasRepository
 
     override fun deleteCinemas() {
         localDataSource.deleteCinemas()
-    }
-
-    override fun refreshCinemas() {
-        localIsDirty = true
     }
 }

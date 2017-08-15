@@ -29,7 +29,5 @@ class CinecorLocalDataSource
 
     override fun saveCinemas(cinemas: List<Cinema>) = cinemaDao.insertCinemas(cinemas)
 
-    override fun refreshCinemas() {} // Not needed here
-
     override fun deleteCinemas() = cinemaDao.deleteCinemas()
 }

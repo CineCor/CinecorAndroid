@@ -64,7 +64,5 @@ class CinecorRemoteDataSource
 
     override fun saveCinemas(cinemas: List<Cinema>) {} // Not needed here
 
-    override fun refreshCinemas() {} // Not needed here
-
     override fun deleteCinemas() {} // Not needed here
 }

@@ -22,7 +22,7 @@ interface CinecorDataSource {
 
     interface GetMoviesCallback {
 
-        fun onMoviesLoaded(movie: LiveData<List<Movie>>)
+        fun onMoviesLoaded(movies: LiveData<List<Movie>>)
 
         fun onDataNotAvailable()
     }
@@ -43,8 +43,6 @@ interface CinecorDataSource {
     fun getMovieFromCinema(cinemaId: Int, movieId: Int, callback: GetMovieCallback)
 
     fun saveCinemas(cinemas: List<Cinema>)
-
-    fun refreshCinemas()
 
     fun deleteCinemas()
 }
