@@ -20,9 +20,9 @@ interface CinemaDao {
     @Query("SELECT movies FROM Cinemas WHERE id = :id")
     fun getMoviesFromCinema(id: Int): LiveData<List<Movie>>
 
+    @Query("SELECT * FROM Movies WHERE id = :movieId") // TODO Improve
+    fun getMovieFromCinema(cinemaId: Int, movieId: Int): LiveData<Movie>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCinema(cinema: Cinema)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCinemas(cinemas: List<Cinema>)

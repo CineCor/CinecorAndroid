@@ -50,9 +50,9 @@ class CinecorRemoteDataSource
         } ?: callback.onDataNotAvailable()
     }
 
-    override fun getMoviesFromCinema(cinemaId: Int, callback: CinecorDataSource.GetMoviesCallback) {
+    override fun getMoviesFromCinema(id: Int, callback: CinecorDataSource.GetMoviesCallback) {
         cinemas.value?.let {
-            callback.onMoviesLoaded(Transformations.map(cinemas, { it.find { it.id == cinemaId }?.movies }))
+            callback.onMoviesLoaded(Transformations.map(cinemas, { it.find { it.id == id }?.movies }))
         } ?: callback.onDataNotAvailable()
     }
 
@@ -62,11 +62,9 @@ class CinecorRemoteDataSource
         } ?: callback.onDataNotAvailable()
     }
 
-    override fun refreshCinemas() {
-        // Not needed here
-    }
+    override fun saveCinemas(cinemas: List<Cinema>) {} // Not needed here
 
-    override fun deleteCinemas() {
-        // Not needed here
-    }
+    override fun refreshCinemas() {} // Not needed here
+
+    override fun deleteCinemas() {} // Not needed here
 }

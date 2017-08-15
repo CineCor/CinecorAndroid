@@ -38,9 +38,11 @@ interface CinecorDataSource {
 
     fun getCinema(id: Int, callback: GetCinemaCallback)
 
-    fun getMoviesFromCinema(cinemaId: Int, callback: GetMoviesCallback)
+    fun getMoviesFromCinema(id: Int, callback: GetMoviesCallback)
 
     fun getMovieFromCinema(cinemaId: Int, movieId: Int, callback: GetMovieCallback)
+
+    fun saveCinemas(cinemas: List<Cinema>)
 
     fun refreshCinemas()
 
