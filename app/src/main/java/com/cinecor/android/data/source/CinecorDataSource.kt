@@ -27,11 +27,20 @@ interface CinecorDataSource {
         fun onDataNotAvailable()
     }
 
+    interface GetMovieCallback {
+
+        fun onMovieLoaded(movie: LiveData<Movie>)
+
+        fun onDataNotAvailable()
+    }
+
     fun getCinemas(callback: LoadCinemasCallback)
 
     fun getCinema(id: Int, callback: GetCinemaCallback)
 
     fun getMoviesFromCinema(cinemaId: Int, callback: GetMoviesCallback)
+
+    fun getMovieFromCinema(cinemaId: Int, movieId: Int, callback: GetMovieCallback)
 
     fun refreshCinemas()
 
