@@ -1,7 +1,7 @@
 package com.cinecor.android.utils
 
 import android.support.v7.util.DiffUtil
-import com.cinecor.android.common.model.Movie
+import com.cinecor.android.data.model.Movie
 
 class MovieDiffCallback(var oldMovies: List<Movie>, var newMovies: List<Movie>) : DiffUtil.Callback() {
 

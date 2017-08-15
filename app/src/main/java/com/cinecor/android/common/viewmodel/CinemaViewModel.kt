@@ -3,9 +3,9 @@ package com.cinecor.android.common.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.cinecor.android.common.model.Cinema
-import com.cinecor.android.common.model.Movie
-import com.cinecor.android.common.repository.CinemasRepository
+import com.cinecor.android.data.model.Cinema
+import com.cinecor.android.data.model.Movie
+import com.cinecor.android.data.source.repository.CinemasRepository
 
 class CinemaViewModel(repository: CinemasRepository) : ViewModel() {
 

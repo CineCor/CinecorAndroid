@@ -1,9 +1,13 @@
-package com.cinecor.android.common.model
+package com.cinecor.android.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.cinecor.android.utils.DateUtils.formatedHour
 import com.cinecor.android.utils.DateUtils.isAfterNow
 
-data class Movie(val id: Int = 0,
+@Entity(tableName = "movies")
+data class Movie(@PrimaryKey
+                 val id: Int = 0,
                  val title: String = "",
                  val hours: List<String> = ArrayList(),
                  val is3d: Boolean = false,

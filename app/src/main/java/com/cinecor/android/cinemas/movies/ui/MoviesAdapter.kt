@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.cinecor.android.R
-import com.cinecor.android.common.model.Movie
+import com.cinecor.android.data.model.Movie
 import com.cinecor.android.utils.MovieDiffCallback
 import kotlinx.android.synthetic.main.item_movie.view.*
 import java.util.*

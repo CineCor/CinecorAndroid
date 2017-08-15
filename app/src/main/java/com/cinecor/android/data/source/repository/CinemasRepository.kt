@@ -1,7 +1,7 @@
-package com.cinecor.android.common.repository
+package com.cinecor.android.data.source.repository
 
 import android.arch.lifecycle.LiveData
-import com.cinecor.android.common.model.Cinema
+import com.cinecor.android.data.model.Cinema
 
 interface CinemasRepository {
 

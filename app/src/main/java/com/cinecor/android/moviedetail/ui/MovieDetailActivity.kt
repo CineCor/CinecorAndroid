@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.cinecor.android.R
-import com.cinecor.android.common.model.Movie
+import com.cinecor.android.data.model.Movie
 import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory

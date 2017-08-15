@@ -30,8 +30,8 @@
 -keepattributes Signature
 
 # This rule will properly ProGuard all the model classes in
-# the package com.cinecor.android.common.model.
--keepclassmembers class com.cinecor.android.common.model.** {
+# the package com.cinecor.android.data.model.
+-keepclassmembers class com.cinecor.android.data.model.** {
   *;
 }
 

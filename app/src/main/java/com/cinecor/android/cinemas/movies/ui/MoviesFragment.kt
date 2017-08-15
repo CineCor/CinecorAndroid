@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.cinecor.android.R
-import com.cinecor.android.common.model.Cinema
-import com.cinecor.android.common.model.Movie
+import com.cinecor.android.data.model.Cinema
+import com.cinecor.android.data.model.Movie
 import com.cinecor.android.common.ui.BaseFragment
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
