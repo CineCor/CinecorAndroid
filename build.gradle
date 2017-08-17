@@ -12,6 +12,8 @@ buildscript {
         glide_version = "4.0.0-RC1"
         retrofit_version = "2.3.0"
         okhttp_version = "3.8.1"
+        rx_java_version = "2.1.2"
+        rx_android_version = "2.0.1"
     }
 
     repositories {

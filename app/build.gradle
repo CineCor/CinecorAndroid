@@ -66,12 +66,16 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    compile "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    compile "io.reactivex.rxjava2:rxjava:$rx_java_version"
+
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.okhttp3:okhttp:$okhttp_version"
 
     compile "android.arch.lifecycle:runtime:$architecture_component_version"
     compile "android.arch.lifecycle:extensions:$architecture_component_version"
     compile "android.arch.persistence.room:runtime:$architecture_component_version"
+    compile "android.arch.persistence.room:rxjava2:$architecture_component_version"
     kapt "android.arch.lifecycle:compiler:$architecture_component_version"
     kapt "android.arch.persistence.room:compiler:$architecture_component_version"
 }

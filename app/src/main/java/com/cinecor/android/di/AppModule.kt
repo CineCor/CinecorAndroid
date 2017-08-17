@@ -2,9 +2,11 @@ package com.cinecor.android.di
 
 import android.content.Context
 import com.cinecor.android.CinecorApp
-import com.cinecor.android.data.source.repository.CinemasRepository
-import com.cinecor.android.data.source.repository.CinemasRepositoryImpl
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
+import com.cinecor.android.data.source.CinemasRepository
+import com.cinecor.android.data.source.local.CinecorDatabase
+import com.cinecor.android.data.source.local.CinecorLocalDataSource
+import com.cinecor.android.data.source.remote.CinecorRemoteDataSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
@@ -15,32 +17,34 @@ import org.jetbrains.anko.AnkoLogger
 class AppModule {
 
     @Provides
-    fun provideContext(application: CinecorApp): Context {
-        return application
-    }
+    fun provideContext(application: CinecorApp): Context = application
 
     @Provides
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
-    fun provideFirebaseDatabase(): FirebaseDatabase {
-        return FirebaseDatabase.getInstance()
-    }
+    fun provideFirebaseDatabase(): FirebaseDatabase = FirebaseDatabase.getInstance()
 
     @Provides
-    fun provideRepository(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase, logger: AnkoLogger): CinemasRepository {
-        return CinemasRepositoryImpl(firebaseAuth, firebaseDatabase, logger)
-    }
+    fun provideLocalDatabase(context: Context): CinecorDatabase =
+            CinecorDatabase.buildDatabase(context)
 
     @Provides
-    fun provideCinemaViewModelFactory(repository: CinemasRepository): CinemaViewModelFactory {
-        return CinemaViewModelFactory(repository)
-    }
+    fun provideLocalDataSource(database: CinecorDatabase): CinecorLocalDataSource =
+            CinecorLocalDataSource(database.cinemaDao())
 
     @Provides
-    fun provideLogger(): AnkoLogger {
-        return AnkoLogger<CinecorApp>()
-    }
+    fun provideRemoteDataSource(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase, logger: AnkoLogger): CinecorRemoteDataSource =
+            CinecorRemoteDataSource(firebaseAuth, firebaseDatabase, logger)
+
+    @Provides
+    fun provideRepository(localDataSource: CinecorLocalDataSource, remoteDataSource: CinecorRemoteDataSource): CinemasRepository =
+            CinemasRepository(localDataSource, remoteDataSource)
+
+    @Provides
+    fun provideCinemaViewModelFactory(repository: CinemasRepository): CinemaViewModelFactory =
+            CinemaViewModelFactory(repository)
+
+    @Provides
+    fun provideLogger(): AnkoLogger = AnkoLogger<CinecorApp>()
 }
