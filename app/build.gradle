@@ -74,6 +74,7 @@ dependencies {
 
     compile "android.arch.lifecycle:runtime:$architecture_component_version"
     compile "android.arch.lifecycle:extensions:$architecture_component_version"
+    compile "android.arch.lifecycle:reactivestreams:$architecture_component_version"
     compile "android.arch.persistence.room:runtime:$architecture_component_version"
     compile "android.arch.persistence.room:rxjava2:$architecture_component_version"
     kapt "android.arch.lifecycle:compiler:$architecture_component_version"
