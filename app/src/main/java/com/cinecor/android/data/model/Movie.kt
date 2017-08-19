@@ -5,38 +5,37 @@ import android.arch.persistence.room.PrimaryKey
 import com.cinecor.android.utils.DateUtils.formatedHour
 import com.cinecor.android.utils.DateUtils.isAfterNow
 
-@Entity(tableName = "movies")
+@Entity
 data class Movie(@PrimaryKey
-                 val id: Int = 0,
-                 val title: String = "",
-                 val hours: List<String> = ArrayList(),
-                 val is3d: Boolean = false,
-                 val isVose: Boolean = false,
-                 val images: HashMap<String, String> = HashMap(),
-                 val colors: HashMap<String, String> = HashMap(),
-                 val overview: String = "",
-                 val imdb: String? = null,
-                 val rating: Float? = null,
-                 val duration: Int? = null,
-                 val trailer: String? = null,
-                 val releaseDate: String? = null,
-                 val genres: List<String>? = null,
-                 val rawDescription: String? = null) {
+                 val id: Int,
+                 val title: String,
+                 val hours: List<String>,
+                 val is3d: Boolean,
+                 val isVose: Boolean,
+                 val images: HashMap<String, String>,
+                 val colors: HashMap<String, String>,
+                 val overview: String,
+                 val imdb: String?,
+                 val rating: Float?,
+                 val duration: Int?,
+                 val trailer: String?,
+                 val releaseDate: String?,
+                 val genres: List<String>?,
+                 val rawDescription: String?) {
 
     enum class Images {POSTER, POSTER_THUMBNAIL, BACKDROP, BACKDROP_THUMBNAIL }
     enum class Colors {MAIN, TITLE, BODY }
 
     fun getBackdropImages(): Pair<String?, String?>? {
-        if (images.containsKey(Images.BACKDROP.toString())) {
-            return Pair(images[Images.BACKDROP.toString()], images[Images.BACKDROP_THUMBNAIL.toString()])
+        return if (images.containsKey(Images.BACKDROP.toString())) {
+            Pair(images[Images.BACKDROP.toString()], images[Images.BACKDROP_THUMBNAIL.toString()])
         } else {
-            return getPosterImages()
+            getPosterImages()
         }
     }
 
-    fun getPosterImages(): Pair<String?, String?>? {
-        return Pair(images[Images.POSTER.toString()], images[Images.POSTER_THUMBNAIL.toString()])
-    }
+    fun getPosterImages(): Pair<String?, String?>? =
+            Pair(images[Images.POSTER.toString()], images[Images.POSTER_THUMBNAIL.toString()])
 
     fun getFormattedHours(): String? {
         val fullhours = StringBuffer()

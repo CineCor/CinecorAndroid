@@ -10,8 +10,7 @@ buildscript {
         junit_version = "4.12"
         espresso_version = "3.0.0"
         glide_version = "4.0.0-RC1"
-        retrofit_version = "2.3.0"
-        okhttp_version = "3.8.1"
+        gson_version = "2.8.1"
         rx_java_version = "2.1.2"
         rx_android_version = "2.0.1"
     }

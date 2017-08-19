@@ -11,23 +11,23 @@ import io.reactivex.Flowable
 @Dao
 interface CinemaDao {
 
-    @Query("SELECT * FROM Cinemas")
+    @Query("SELECT * FROM cinema")
     fun getCinemas(): Flowable<List<Cinema>>
 
-    @Query("SELECT * FROM Cinemas WHERE id = :id")
+    @Query("SELECT * FROM cinema WHERE id = :id")
     fun getCinemaById(id: Int): Flowable<Cinema>
 
-    @Query("SELECT movies FROM Cinemas WHERE id = :id")
+    @Query("SELECT movies FROM cinema WHERE id = :id")
     fun getMoviesFromCinema(id: Int): Flowable<List<Movie>>
 
-    @Query("SELECT * FROM Movies WHERE id = :movieId") // TODO Improve
-    fun getMovieFromCinema(cinemaId: Int, movieId: Int): Flowable<Movie>
+    @Query("SELECT * FROM movie WHERE id = :movieId") // TODO Improve
+    fun getMovieFromCinema(movieId: Int): Flowable<Movie>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCinemas(cinemas: List<Cinema>)
 
 
-    @Query("DELETE FROM Cinemas")
+    @Query("DELETE FROM cinema")
     fun deleteCinemas()
 }
