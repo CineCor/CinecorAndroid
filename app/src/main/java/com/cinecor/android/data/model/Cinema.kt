@@ -1,15 +1,19 @@
 package com.cinecor.android.data.model
 
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class Cinema(@PrimaryKey
-                  val id: Int,
-                  val name: String,
-                  val movies: List<Movie>,
-                  val address: String?,
-                  val image: String?,
-                  val rooms: String?,
-                  val phone: String?,
-                  val web: String?)
+                  var id: Int = 0,
+                  var name: String = "",
+                  var movies: List<Movie> = ArrayList(),
+                  var address: String? = null,
+                  var image: String? = null,
+                  var rooms: String? = null,
+                  var phone: String? = null,
+                  var web: String? = null) {
+
+    @Ignore constructor() : this(0, "", ArrayList(), null, null, null, null, null)
+}
