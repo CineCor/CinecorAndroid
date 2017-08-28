@@ -17,7 +17,8 @@ data class Movie(var id: Int = 0,
                  var trailer: String? = null,
                  var releaseDate: String? = null,
                  var genres: List<String>? = null,
-                 var rawDescription: String? = null) {
+                 var rawDescription: String? = null,
+                 var url: String? = null) {
 
     enum class Images {POSTER, POSTER_THUMBNAIL, BACKDROP, BACKDROP_THUMBNAIL }
     enum class Colors {MAIN, TITLE, BODY }

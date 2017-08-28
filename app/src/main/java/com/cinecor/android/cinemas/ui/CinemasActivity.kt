@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.widget.Toast
 import com.cinecor.android.R
-import com.cinecor.android.data.model.Cinema
 import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
+import com.cinecor.android.data.model.Cinema
 import kotlinx.android.synthetic.main.activity_cinemas.*
 import javax.inject.Inject
 

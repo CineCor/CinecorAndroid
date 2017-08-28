@@ -34,8 +34,8 @@ class AppModule {
             CinecorLocalDataSource(database.cinemaDao())
 
     @Provides
-    fun provideRemoteDataSource(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase, logger: AnkoLogger): CinecorRemoteDataSource =
-            CinecorRemoteDataSource(firebaseAuth, firebaseDatabase, logger)
+    fun provideRemoteDataSource(firebaseAuth: FirebaseAuth, firebaseDatabase: FirebaseDatabase): CinecorRemoteDataSource =
+            CinecorRemoteDataSource(firebaseAuth, firebaseDatabase)
 
     @Provides
     fun provideRepository(localDataSource: CinecorLocalDataSource, remoteDataSource: CinecorRemoteDataSource): CinemasRepository =

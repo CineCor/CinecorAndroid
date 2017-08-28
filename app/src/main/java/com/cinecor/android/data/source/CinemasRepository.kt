@@ -9,25 +9,19 @@ class CinemasRepository
 @Inject constructor(private val localDataSource: CinecorDataSource, private val remoteDataSource: CinecorDataSource)
     : CinecorDataSource {
 
-    override fun getCinemas(): Flowable<List<Cinema>> = Flowable.concat(
+    override fun getCinemas(): Flowable<List<Cinema>> = Flowable.merge(
             localDataSource.getCinemas(),
             remoteDataSource.getCinemas().doOnNext(localDataSource::saveCinemas)
-    )
+    ).filter { it.isNotEmpty() }
 
-    override fun getCinema(id: Int): Flowable<Cinema> = Flowable.concat(
-            localDataSource.getCinema(id),
-            remoteDataSource.getCinema(id)
-    )
+    override fun getCinema(id: Int): Flowable<Cinema> =
+            localDataSource.getCinema(id)
 
-    override fun getMoviesFromCinema(id: Int): Flowable<List<Movie>> = Flowable.concat(
-            localDataSource.getMoviesFromCinema(id),
-            remoteDataSource.getMoviesFromCinema(id)
-    )
+    override fun getMoviesFromCinema(id: Int): Flowable<List<Movie>> =
+            localDataSource.getMoviesFromCinema(id)
 
-    override fun getMovieFromCinema(cinemaId: Int, movieId: Int): Flowable<Movie> = Flowable.concat(
-            localDataSource.getMovieFromCinema(cinemaId, movieId),
-            remoteDataSource.getMovieFromCinema(cinemaId, movieId)
-    )
+    override fun getMovieFromCinema(cinemaId: Int, movieId: Int): Flowable<Movie> =
+            localDataSource.getMovieFromCinema(cinemaId, movieId)
 
     override fun saveCinemas(cinemas: List<Cinema>) = localDataSource.saveCinemas(cinemas)
 

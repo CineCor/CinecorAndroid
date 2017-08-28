@@ -17,6 +17,7 @@ abstract class CinecorDatabase : RoomDatabase() {
         fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context,
                         CinecorDatabase::class.java, "Cinecor.db")
+                        .allowMainThreadQueries()
                         .build()
     }
 }

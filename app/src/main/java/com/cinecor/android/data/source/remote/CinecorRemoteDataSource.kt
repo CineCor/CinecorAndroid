@@ -4,43 +4,23 @@ import com.cinecor.android.data.model.Cinema
 import com.cinecor.android.data.model.Movie
 import com.cinecor.android.data.source.CinecorDataSource
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import durdinapps.rxfirebase2.DataSnapshotMapper
+import durdinapps.rxfirebase2.RxFirebaseAuth
+import durdinapps.rxfirebase2.RxFirebaseDatabase
 import io.reactivex.Flowable
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.warn
 import javax.inject.Inject
 
 class CinecorRemoteDataSource
-@Inject constructor(private val firebaseAuth: FirebaseAuth, private val database: FirebaseDatabase, private val logger: AnkoLogger)
+@Inject constructor(private val firebaseAuth: FirebaseAuth, private val database: FirebaseDatabase)
     : CinecorDataSource {
 
-    private var cinemas: Flowable<List<Cinema>> = Flowable.never()
-
-    override fun getCinemas(): Flowable<List<Cinema>> {
-        firebaseAuth.signInAnonymously().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val reference = database.getReference("cinemas")
-                reference.keepSynced(true)
-                reference.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        cinemas = Flowable.fromArray(dataSnapshot.children.map { it.getValue(Cinema::class.java)!! })
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        logger.warn { databaseError.message }
-                        cinemas = Flowable.error(Throwable(databaseError.message))
-                    }
-                })
-            } else {
-                logger.warn { "Authentication failed" }
-                cinemas = Flowable.error(Throwable("Authentication failed"))
-            }
-        }
-        return cinemas
+    private var cinemas = RxFirebaseAuth.signInAnonymously(firebaseAuth).toFlowable().flatMap {
+        RxFirebaseDatabase.observeValueEvent(database.getReference("cinemas"), DataSnapshotMapper.listOf<Cinema>(Cinema::class.java))
     }
+
+    override fun getCinemas(): Flowable<List<Cinema>> =
+            cinemas
 
     override fun getCinema(id: Int): Flowable<Cinema> =
             cinemas.map { it.find { it.id == id } }
