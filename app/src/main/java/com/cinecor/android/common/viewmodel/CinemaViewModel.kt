@@ -15,6 +15,6 @@ class CinemaViewModel(private val repository: CinemasRepository) : ViewModel() {
     fun getCinema(cinemaId: Int): LiveData<Cinema> =
             LiveDataReactiveStreams.fromPublisher(repository.getCinema(cinemaId))
 
-    fun getMovieFromCinema(movieId: Int, cinemaId: Int): LiveData<Movie> =
-            LiveDataReactiveStreams.fromPublisher(repository.getMovieFromCinema(movieId, cinemaId))
+    fun getMovieFromCinema(cinemaId: Int, movieId: Int): LiveData<Movie> =
+            LiveDataReactiveStreams.fromPublisher(repository.getMovieFromCinema(cinemaId, movieId))
 }

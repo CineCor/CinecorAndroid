@@ -9,7 +9,5 @@ import javax.inject.Inject
 class CinemaViewModelFactory
 @Inject constructor(private val repository: CinemasRepository) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CinemaViewModel(repository) as T
-    }
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = CinemaViewModel(repository) as T
 }

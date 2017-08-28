@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.cinecor.android.R
-import com.cinecor.android.data.model.Movie
 import com.cinecor.android.common.ui.BaseActivity
 import com.cinecor.android.common.viewmodel.CinemaViewModel
 import com.cinecor.android.common.viewmodel.CinemaViewModelFactory
+import com.cinecor.android.data.model.Movie
 import com.cinecor.android.utils.ColorUtils.rgba
 import com.cinecor.android.utils.IntentUtils
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class MovieDetailActivity : BaseActivity(), Observer<Movie> {
@@ -28,17 +29,21 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
         getMovie()
     }
 
-    private fun getMovie() {
-        val cinemaId = intent.extras.getInt(IntentUtils.ARG_CINEMA_ID, -1)
-        val movieId = intent.extras.getInt(IntentUtils.ARG_MOVIE_ID, -1)
-        viewModel = ViewModelProviders.of(this, factory).get(CinemaViewModel::class.java)
-        viewModel.getMovieFromCinema(movieId, cinemaId).observe(this, this)
-    }
-
     private fun setupView() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun getMovie() {
+        val cinemaId = intent.extras.getInt(IntentUtils.ARG_CINEMA_ID, -1)
+        val movieId = intent.extras.getInt(IntentUtils.ARG_MOVIE_ID, -1)
+        viewModel = ViewModelProviders.of(this, factory).get(CinemaViewModel::class.java)
+        viewModel.getMovieFromCinema(cinemaId, movieId).observe(this, this)
+    }
+
+    override fun onChanged(movie: Movie?) {
+        movie?.let { showMovie(movie) } ?: toast("There was an error loading the movie")
     }
 
     private fun showMovie(movie: Movie) {
@@ -66,10 +71,6 @@ class MovieDetailActivity : BaseActivity(), Observer<Movie> {
                 .load(posterImages?.first)
                 .thumbnail(Glide.with(this).load(posterImages?.second))
                 .into(poster)
-    }
-
-    override fun onChanged(movie: Movie?) {
-        movie?.let { showMovie(movie) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

@@ -16,10 +16,10 @@ class CinecorLocalDataSource
             cinemaDao.getCinemaById(id)
 
     override fun getMoviesFromCinema(id: Int): Flowable<List<Movie>> =
-            cinemaDao.getCinemaById(id).map { it.movies }
+            getCinema(id).map { it.movies }
 
     override fun getMovieFromCinema(cinemaId: Int, movieId: Int): Flowable<Movie> =
-            cinemaDao.getCinemaById(cinemaId).map { it.movies }.map { it.find { it.id == movieId } }
+            getMoviesFromCinema(cinemaId).map { it.find { it.id == movieId } }
 
     override fun saveCinemas(cinemas: List<Cinema>) =
             cinemaDao.insertCinemas(cinemas)
