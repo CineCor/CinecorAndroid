@@ -1,21 +1,20 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'kotlin-kapt'
 apply from: "$project.rootDir/script-git-version.gradle"
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.cinecor.android"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode gitVersionCode
         versionName gitVersionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -30,55 +29,18 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version", {
-        exclude group: "com.android.support", module: "support-annotations"
-        exclude group: "com.google.code.findbugs", module: "jsr305"
-    })
-    testCompile "junit:junit:$junit_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko:$anko_version"
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-alpha1'
 
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:recyclerview-v7:$support_version"
-    compile "com.android.support:cardview-v7:$support_version"
-    compile "com.android.support:design:$support_version"
-    compile "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation 'com.google.android.material:material:1.0.0-alpha3'
 
-    compile "com.google.firebase:firebase-core:$firebase_version"
-    compile "com.google.firebase:firebase-crash:$firebase_version"
-    compile "com.google.firebase:firebase-auth:$firebase_version"
-    compile "com.google.firebase:firebase-database:$firebase_version"
-    compile "com.google.firebase:firebase-perf:$firebase_version"
-    compile "com.github.frangsierra:rx2firebase:$rx2firebase"
-
-    compile "com.google.dagger:dagger:$dagger_version"
-    compile "com.google.dagger:dagger-android:$dagger_version"
-    compile "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-
-    compile "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-
-    compile "io.reactivex.rxjava2:rxandroid:$rx_android_version"
-    compile "io.reactivex.rxjava2:rxjava:$rx_java_version"
-
-    compile "com.google.code.gson:gson:$gson_version"
-
-    compile "android.arch.lifecycle:runtime:$architecture_component_version"
-    compile "android.arch.lifecycle:extensions:$architecture_component_version"
-    compile "android.arch.lifecycle:reactivestreams:$architecture_component_version"
-    compile "android.arch.persistence.room:runtime:$architecture_component_version"
-    compile "android.arch.persistence.room:rxjava2:$architecture_component_version"
-    kapt "android.arch.lifecycle:compiler:$architecture_component_version"
-    kapt "android.arch.persistence.room:compiler:$architecture_component_version"
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-firestore:17.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

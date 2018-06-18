@@ -15,7 +15,7 @@
 
     <style name="CinecorTheme.Translucent.Splash">
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
-        <item name="android:windowBackground">@drawable/splash_background</item>
+        <!--<item name="android:windowBackground">@drawable/splash_background</item>-->
     </style>
 
     <style name="CircularProgress" parent="CinecorTheme.PopupOverlay">

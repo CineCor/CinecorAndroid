@@ -1,7 +1,0 @@
-<resources>
-    <dimen name="app_bar_height">240dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="toolbar_elevation">4dp</dimen>
-    <dimen name="poster_elevation">8dp</dimen>
-</resources>
