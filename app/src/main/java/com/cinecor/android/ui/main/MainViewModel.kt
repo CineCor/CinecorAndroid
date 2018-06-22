@@ -12,6 +12,12 @@ class MainViewModel(
     val sessions = MutableLiveData<List<Session>>()
 
     fun fetchSessions() {
-
+        firestore.collection("sessions").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                sessions.value = task.result.map { it.toObject(Session::class.java) }
+            } else {
+                sessions.value = null
+            }
+        }
     }
 }

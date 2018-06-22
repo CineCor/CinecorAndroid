@@ -1,6 +1,7 @@
 package com.cinecor.android.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,9 +24,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this, factory).get(MainViewModel::class.java)
         viewModel.sessions.observe(this, Observer(this::showSessions))
+
+        viewModel.fetchSessions()
     }
 
     private fun showSessions(sessions: List<Session>?) {
-        
+        Log.wtf("MainActivity", "Sessions: ${sessions?.size}")
     }
 }

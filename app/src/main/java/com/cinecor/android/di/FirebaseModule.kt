@@ -1,5 +1,6 @@
 package com.cinecor.android.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -8,5 +9,8 @@ import dagger.Provides
 class FirebaseModule {
 
     @Provides
-    fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+
+    @Provides
+    fun provideFirebaseFirestore() = FirebaseFirestore.getInstance()
 }
